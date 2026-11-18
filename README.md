@@ -1,4 +1,4 @@
-# Daily cards — standalone iPhone app
+# UX Recall — standalone iPhone app
 
 This folder is a complete offline web app. It holds no personal data; your cards
 live only on your phone after you restore your backup file.
