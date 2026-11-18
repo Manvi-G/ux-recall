@@ -302,7 +302,7 @@ var xIcon='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="c
 function header(){
   var v=S.view==="edit"?S.editReturn:S.view;
   function tab(id,label,inner){return '<button class="tab'+(inner?' icon':'')+'" data-act="nav" data-v="'+id+'"'+(v===id?' aria-current="page"':'')+(inner?' aria-label="'+label+'"':'')+'>'+(inner||label)+'</button>';}
-  return '<header class="top"><span class="brand">Daily cards</span><nav aria-label="Main">'+tab("today","Today")+tab("library","Library")+tab("add","Add")+tab("settings","Settings",gear)+'</nav></header>';
+  return '<header class="top"><span class="brand">UX recall</span><nav aria-label="Main">'+tab("today","Today")+tab("library","Library")+tab("add","Add")+tab("settings","Settings",gear)+'</nav></header>';
 }
 function render(){
   document.body.classList.toggle("in-session",S.view==="session");
@@ -316,7 +316,7 @@ function render(){
   if(fid){var el=document.getElementById(fid);if(el&&el!==document.activeElement){el.focus({preventScroll:true});try{if(ss!=null)el.setSelectionRange(ss,se);}catch(e){}}}
 }
 function statusView(){
-  return '<header class="top"><span class="brand">Daily cards</span></header>'+
+  return '<header class="top"><span class="brand">UX recall</span></header>'+
     '<div class="stack"><div class="icard"><div class="head"><p class="today-line" tabindex="-1" data-focus>Bring your cards to this phone.</p></div>'+
     '<p class="today-sub">Choose the backup file you saved from Claude or from another device. Your cards and progress stay on this phone only.</p>'+
     '<button class="btn primary block" data-act="importbk">Choose backup file</button>'+
@@ -573,15 +573,15 @@ function exportData(){
   function fallback(){var url=URL.createObjectURL(new Blob([data],{type:"application/json"}));var a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},4000);done();}
   try{
     var file=new File([data],name,{type:"application/json"});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:"Daily cards backup"}).then(done,function(e){if(!e||e.name!=="AbortError")fallback();});return;}
+    if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:"UX recall backup"}).then(done,function(e){if(!e||e.name!=="AbortError")fallback();});return;}
   }catch(e){}
   fallback();
 }
 function restoreFile(file){
   var rd=new FileReader();
   rd.onload=function(){
-    var d;try{d=JSON.parse(rd.result);}catch(e){toast("That file isn’t a Daily cards backup.");return;}
-    if(!d||d.app!=="daily-cards"||!d.cards){toast("That file isn’t a Daily cards backup.");return;}
+    var d;try{d=JSON.parse(rd.result);}catch(e){toast("That file isn’t a UX recall backup.");return;}
+    if(!d||d.app!=="daily-cards"||!d.cards){toast("That file isn’t a UX recall backup.");return;}
     function apply(){
       S.cards=d.cards;S.progress=d.progress||{};S.settings=d.settings||{perSession:8,maxNew:5};
       S.session=d.session&&d.session.date===today()?d.session:null;S.last=null;S.status="ready";
